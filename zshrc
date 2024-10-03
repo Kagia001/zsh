@@ -1,14 +1,18 @@
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export LANG=en_US.UTF-8
 export EDITOR='emacs'
-export FZF_DEFAULT_COMMAND='find .'
+export FZF_DEFAULT_COMMAND='fd -H'
+export TERMINAL='linux'
+SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=100000
+HISTSIZE=100
+SAVEHIST=100
 PROMPT="%F{blue}[%n@%m %~]%f$ "
 
+
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-    startx
+    # startx
+    Hyprland
 fi
 
 # ls after cd
@@ -49,6 +53,15 @@ vterm_printf(){
     fi
 }
 
+# functions
+cpf () {
+    cp $1 /tmp/cpf
+}
+
+pf () {
+    cp /tmp/cpf $1
+}
+
 # aliases
 alias pcsleep="systemctl suspend"
 alias config='/usr/bin/git --git-dir=/home/karl/dotfiles --work-tree=/home/karl'
@@ -68,10 +81,12 @@ alias v="nvim"
 alias e="emacsclient -c"
 alias te="emacs -nw"
 alias rmrf="rm -rf"
-alias sudo="sudo -E"
+# alias sudo="sudo -E"
 alias chx="chmod +x"
-alias ls="exa -l"
-alias screenshot="maim ~/Screenshots/$(date +%s).png"
+alias ls="eza -l"
+screenshot() {
+    grim ~/Screenshots/$(date +%Y%m%d%H%M%S).png
+}
 alias windows="\"sudo\" grub-reboot 1 && systemctl reboot"
 
 alias hlmatch="grep --color=always -e "^" -e"
@@ -84,3 +99,6 @@ alias gaa="git add -A"
 
 alias sp="splash"
 alias amx="alsamixer -c 1"
+
+alias uskb="setxkbmap us"
+alias cmkb="xmodmap ~/.config/xmodmap"
